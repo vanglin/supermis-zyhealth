@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="主键，资讯编号" value="${item.id}" underline="true"/>
+                            <#input id="newsType" name="资讯类别，1表示健康资讯类,2表示哮喘管理类，3表示设备资讯类" value="${item.newsType}" underline="true"/>
+                            <#input id="title" name="资讯标题" value="${item.title}" underline="true"/>
+                            <#input id="content" name="新闻内容" value="${item.content}" underline="true"/>
+                            <#input id="createTime" name="创建时间" value="${item.createTime}" underline="true"/>
+                            <#input id="modTime" name="修改时间" value="${item.modTime}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="editor" name="编辑人" value="${item.editor}" underline="true"/>
+                            <#input id="roleid" name="面向人群的角色" value="${item.roleid}" underline="true"/>
+                            <#input id="readCount" name="阅读次数" value="${item.readCount}" underline="true"/>
+                            <#input id="status" name="当前状态，1表示可用，2表示不可用" value="${item.status}" underline="true"/>
+                            <#input id="alterCol" name="备选列" value="${item.alterCol}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="NewsInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="NewsInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/news/news_info.js"></script>
+@}

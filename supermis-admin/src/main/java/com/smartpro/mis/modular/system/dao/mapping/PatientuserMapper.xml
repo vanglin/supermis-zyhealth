@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.PatientuserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Patientuser">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="cardNo" property="cardNo" />
+        <result column="age" property="age" />
+        <result column="permAddr" property="permAddr" />
+        <result column="mobile" property="mobile" />
+        <result column="firstRelName" property="firstRelName" />
+        <result column="firstRelMobile" property="firstRelMobile" />
+        <result column="secondRelName" property="secondRelName" />
+        <result column="secondRelMobile" property="secondRelMobile" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, username, cardNo, age, permAddr, mobile, firstRelName, firstRelMobile, secondRelName, secondRelMobile
+    </sql>
+
+
+    <select id="getByMobile" resultType="patientuser">
+        select
+        <include refid="Base_Column_List" />
+        from patientUser where mobile = #{mobile}
+    </select>
+
+    <!-- 插入一条用户详细信息 -->
+    <insert id="insertObject" parameterType="com.smartpro.mis.modular.system.model.Patientuser" >
+        <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO patientUser(username,cardNo,age,permAddr,mobile,firstRelName,firstRelMobile,secondRelName,secondRelMobile)values
+        (#{username},#{cardNo},#{age},#{permAddr},#{mobile},#{firstRelName},#{firstRelMobile},#{secondRelName},#{secondRelMobile});
+    </insert>
+
+<!-- 根据用户手机号码删除记录 -->
+    <delete id="deleteByMobile">
+        delete from patientUser where mobile = #{mobile}
+    </delete>
+
+</mapper>

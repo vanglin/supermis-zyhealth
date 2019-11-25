@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.UserdeviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Userdevice">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="deviceId" property="deviceId" />
+        <result column="leaseStartTime" property="leaseStartTime" />
+        <result column="leaseTime" property="leaseTime" />
+        <result column="deviceInitValue" property="deviceInitValue" />
+        <result column="altercol" property="altercol" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, deviceId, leaseStartTime, leaseTime, deviceInitValue, altercol
+    </sql>
+    <!-- 详细查询结果列 -->
+    <sql id="Base_Column_List_With_DeviceInfo">
+        u.id, u.uid, u.deviceId, u.leaseStartTime, u.leaseTime, u.deviceInitValue, u.altercol,d.deviceName, d.deviceType, d.functions, d.functionDesc,
+         d.manufacturer, d.deviceModel, d.productDate, d.expirationDate, d.devicePrice, d.deviceStock, d.deviceImg, d.createTime, d.altercol as deviceAltercol
+    </sql>
+
+
+    <select id="selectListByUid" resultType="map">
+        select
+        <include refid="Base_Column_List_With_DeviceInfo" />
+        from userdevice u
+        where uid = #{uid}
+        <if test="null != deviceId ">
+            and (deviceId = #{deviceId})
+        </if>
+        LEFT join device d  ON u.deviceId = d.id
+        ORDER BY
+        u.id ASC
+    </select>
+
+    <select id="selectUserDeviceById" resultType="map">
+        select
+        <include refid="Base_Column_List_With_DeviceInfo" />
+        from userdevice u
+        where u.id = #{id}
+        LEFT join device d  ON u.deviceId = d.id
+        ORDER BY
+        u.id ASC
+    </select>
+
+
+</mapper>

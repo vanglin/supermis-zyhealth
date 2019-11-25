@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.InteractmessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Interactmessage">
+        <id column="id" property="id" />
+        <result column="mesOwner" property="mesOwner" />
+        <result column="contraid" property="contraid" />
+        <result column="megSender" property="megSender" />
+        <result column="megReciver" property="megReciver" />
+        <result column="megContent" property="megContent" />
+        <result column="sendTime" property="sendTime" />
+        <result column="readTime" property="readTime" />
+        <result column="isRead" property="isRead" />
+        <result column="megType" property="megType" />
+        <result column="altercol" property="altercol" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, mesOwner, contraid, megSender, megReciver, megContent, sendTime, readTime, isRead, megType, altercol
+    </sql>
+    <!--查询与某人最近的所有聊天记录-->
+    <select id="selectListMegs" resultType="map">
+        select
+        <include refid="Base_Column_List" />
+        from interactmessage m
+        where mesOwner = #{uid} and megType = 1
+        <if test="null != megReciver ">
+            and megReciver = #{megReciver} OR megReciver = #{uid}
+        </if>
+        <if test="null != sendTime ">
+            and sendTime >= #{sendTime}
+        </if>
+        ORDER BY id DESC
+    </select>
+
+    <insert id="insertMeg"  parameterType="com.smartpro.mis.modular.system.model.Interactmessage">
+        INSERT INTO interactmessage(mesOwner, contraid, megSender, megReciver, megContent, sendTime, readTime, isRead, megType, altercol) VALUES (
+        #{mesOwner},#{contraid},#{megSender},#{megReciver},#{megContent},#{sendTime},#{readTime},#{isRead},#{megType},#{altercol} );
+
+        INSERT INTO interactmessage(mesOwner, contraid, megSender, megReciver, megContent, sendTime, readTime, isRead, megType, altercol) VALUES (
+        #{contraid},#{mesOwner},#{megSender},#{megReciver},#{megContent},#{sendTime},#{readTime},#{isRead},#{megType},#{altercol} )
+
+    </insert>
+
+    <!--<select id="selectLastMegs" resultMap="map">-->
+
+        <!--SELECT MAX(id) AS id, COUNT(id) AS msgCount FROM interactmessage WHERE mesOwner = #{uid} GROUP BY contraid ORDER BY id DESC-->
+
+    <!--</select>-->
+
+    <update id="viewMeg" parameterType="Integer">
+        UPDATE  interactmessage
+        SET isRead = 1,
+        readTime = now()
+        WHERE id= #{id}
+
+    </update>
+
+    <update id="delMeg" parameterType="long">
+        DELETE  interactmessage
+         WHERE id= #{id}
+
+    </update>
+
+</mapper>

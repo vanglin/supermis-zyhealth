@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="megOwner" name="提问者编号" value="${item.megOwner}" underline="true"/>
+                            <#input id="answerId" name="回答者编号" value="${item.answerId}" underline="true"/>
+                            <#input id="question" name="问题内容" value="${item.question}" underline="true"/>
+                            <#input id="answer" name="回答内容" value="${item.answer}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="isReply" name="1表示已回复，0表示未回复" value="${item.isReply}" underline="true"/>
+                            <#input id="qaTime" name="提问时间" value="${item.qaTime}" underline="true"/>
+                            <#input id="replyTime" name="回答时间" value="${item.replyTime}" underline="true"/>
+                            <#input id="isValid" name="是否有效" value="${item.isValid}" underline="true"/>
+                            <#input id="alterCon" name="可选字段" value="${item.alterCon}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="AnswerInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="AnswerInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/answer/answer_info.js"></script>
+@}

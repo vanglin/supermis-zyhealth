@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.NewsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.News">
+        <id column="id" property="id" />
+        <result column="newsType" property="newsType" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="createTime" property="createTime" />
+        <result column="modTime" property="modTime" />
+        <result column="editor" property="editor" />
+        <result column="roleid" property="roleid" />
+        <result column="readCount" property="readCount" />
+        <result column="status" property="status" />
+        <result column="titleImg" property="titleImg" />
+        <result column="outlink" property="outlink" />
+        <result column="alterCol" property="alterCol" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, newsType, title, content, createTime, modTime, editor, roleid, readCount, status,titleImg,outlink,alterCol
+    </sql>
+
+    <select id="selectNewsList" resultType="map">
+        select
+        <include refid="Base_Column_List" />
+        from news
+        where 'status' !=-1
+        <if test="newsType != null and newsType != ''">
+            AND newsType = #{newsType}
+        </if>
+        <if test="roleid != null and roleid != ''">
+            AND roleid = #{roleid}
+        </if>
+        <if test="editor != null and editor != ''">
+            AND editor = #{editor}
+        </if>
+        <if test="createTime != null and createTime != ''">
+            AND createTime >= #{createTime}
+        </if>
+        order by createTime DESC
+        <if test="start >=0 and num > 0">
+          limit #{start},#{num}
+        </if>
+
+    </select>
+
+
+</mapper>

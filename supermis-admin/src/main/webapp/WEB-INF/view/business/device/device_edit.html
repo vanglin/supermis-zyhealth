@@ -1,0 +1,41 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="设备编号" value="${item.id}" underline="true"/>
+                            <#input id="deviceName" name="设备名称" value="${item.deviceName}" underline="true"/>
+                            <#input id="deviceType" name="设备类型" value="${item.deviceType}" underline="true"/>
+                            <#input id="functions" name="功效类型" value="${item.functions}" underline="true"/>
+                            <#input id="functionDesc" name="功能描述" value="${item.functionDesc}" underline="true"/>
+                            <#input id="manufacturer" name="生产厂家" value="${item.manufacturer}" underline="true"/>
+                            <#input id="deviceModel" name="设备型号" value="${item.deviceModel}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="productDate" name="出厂日期" value="${item.productDate}" underline="true"/>
+                            <#input id="expirationDate" name="设备保质期" value="${item.expirationDate}" underline="true"/>
+                            <#input id="devicePrice" name="设备单价" value="${item.devicePrice}" underline="true"/>
+                            <#input id="deviceStock" name="库存量" value="${item.deviceStock}" underline="true"/>
+                            <#input id="deviceImg" name="设备图片" value="${item.deviceImg}" underline="true"/>
+                            <#input id="createTime" name="" value="${item.createTime}" underline="true"/>
+                            <#input id="altercol" name="备选列" value="${item.altercol}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="DeviceInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="DeviceInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/device/device_info.js"></script>
+@}

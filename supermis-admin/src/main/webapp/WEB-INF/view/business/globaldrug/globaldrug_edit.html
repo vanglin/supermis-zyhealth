@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="drug" name="药物名称" value="${item.drug}" underline="true"/>
+                            <#input id="functionDescript" name="药物功能描述" value="${item.functionDescript}" underline="true"/>
+                            <#input id="treatSymptoms" name="治疗症状" value="${item.treatSymptoms}" underline="true"/>
+                            <#input id="advEffect" name="不良反应" value="${item.advEffect}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="stock" name="" value="${item.stock}" underline="true"/>
+                            <#input id="supplier" name="供应商" value="${item.supplier}" underline="true"/>
+                            <#input id="dosageManage" name="用量管理" value="${item.dosageManage}" underline="true"/>
+                            <#input id="createTime" name="添加时间" value="${item.createTime}" underline="true"/>
+                            <#input id="altercol" name="备选列" value="${item.altercol}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="GlobaldrugInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="GlobaldrugInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/globaldrug/globaldrug_info.js"></script>
+@}

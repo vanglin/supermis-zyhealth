@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="消息编号" underline="true"/>
+                            <#input id="mesOwner" name="消息主人" underline="true"/>
+                            <#input id="contraid" name="对方编号" underline="true"/>
+                            <#input id="megSender" name="消息发送者编号" underline="true"/>
+                            <#input id="megReciver" name="" underline="true"/>
+                            <#input id="megContent" name="消息内容"/>
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="sendTime" name="" underline="true"/>
+                            <#input id="readTime" name="" underline="true"/>
+                            <#input id="isRead" name="消息是否已读,1表示已读，0未读" underline="true"/>
+                            <#input id="megType" name="消息类型,1表示普通消息，2表示系统消息" underline="true"/>
+                            <#input id="altercol" name="备选列" underline="true"/>
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="InteractmessageInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="InteractmessageInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/interactmessage/interactmessage_info.js"></script>
+@}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.DprelationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Dprelation">
+        <id column="id" property="id" />
+        <result column="doctorId" property="doctorId" />
+        <result column="patientId" property="patientId" />
+        <result column="status" property="status" />
+        <result column="createTime" property="createTime" />
+        <result column="updateTime" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, doctorId, patientId, status, createTime, updateTime
+    </sql>
+
+    <select id="selectPacsByKey"  resultType="map">
+        select u.id,dp.id as dpId,u.avatar,u.account,u.name,u.birthday,u.sex,p.username,p.cardNo,p.age,p.permAddr,p.mobile,p.firstRelName,p.firstRelMobile,p.secondRelName,p.secondRelMobile,dp.status
+
+        from sys_user u,patientuser p,dprelation dp
+        where u.phone = p.mobile and u.id = dp.patientId and dp.status = 1 and dp.doctorId=#{id}
+
+    </select>
+
+    <select id="selectDocsByKey"  resultType="map">
+        select u.id,dp.id as dpId,u.avatar,u.account,u.name,u.birthday,u.sex,d.username,d.cardNo,d.hospitalName,d.mobile,d.hospitalAddr,d.department,d.title,d.medSpecialty, d.collScore,dp.status
+
+        from sys_user u,doctoruser d,dprelation dp
+        where u.phone = d.mobile and u.id = dp.doctorId and dp.status = 1  and dp.patientId=#{id}
+
+    </select>
+
+
+    <select id="selectPacs"  resultType="map">
+        select u.id,dp.id as dpId,u.avatar,u.account,u.name,u.birthday,u.sex,p.username,p.cardNo,p.age,p.permAddr,p.mobile,p.firstRelName,p.firstRelMobile,p.secondRelName,p.secondRelMobile,dp.status
+
+        from sys_user u,patientuser p,dprelation dp
+        where u.phone = p.mobile and u.id = dp.patientId  and dp.doctorId=#{id}
+        <if test="status != -1">
+            and dp.status= #{status}
+        </if>
+
+    </select>
+
+    <select id="selectDocs"  resultType="map">
+        select u.id,dp.id as dpId,u.avatar,u.account,u.name,u.birthday,u.sex,d.username,d.cardNo,d.hospitalName,d.mobile,d.hospitalAddr,d.department,d.title,d.medSpecialty, d.collScore,dp.status
+
+        from sys_user u,doctoruser d,dprelation dp
+        where u.phone = d.mobile and u.id = dp.doctorId  and dp.patientId=#{id}
+        <if test="status != -1">
+            and dp.status= #{status}
+        </if>
+    </select>
+
+    <update id="setStatus">
+		update dprelation set status = #{status} where id =
+		#{id}
+	</update>
+
+</mapper>

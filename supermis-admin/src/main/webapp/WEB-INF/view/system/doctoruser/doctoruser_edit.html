@@ -1,0 +1,37 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="id" value="${item.id}">
+
+            <div class="row">
+                <div class="col-sm-6 b-r">
+                            <#input id="id" name="" value="${item.id}" underline="true"/>
+                            <#input id="username" name="" value="${item.username}" underline="true"/>
+                            <#input id="IDCardNo" name="" value="${item.IDCardNo}" underline="true"/>
+                            <#input id="hospitalName" name="" value="${item.hospitalName}" underline="true"/>
+                            <#input id="hospitalAddr" name="医院地址" value="${item.hospitalAddr}" />
+                </div>
+
+                <div class="col-sm-6">
+                            <#input id="department" name="科室" value="${item.department}" underline="true"/>
+                            <#input id="title" name="职称" value="${item.title}" underline="true"/>
+                            <#input id="medSpecialty" name="医学专长" value="${item.medSpecialty}" underline="true"/>
+                            <#input id="mobile" name="" value="${item.mobile}" underline="true"/>
+                            <#input id="collScore" name="综合评分" value="${item.collScore}" />
+                </div>
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="DoctoruserInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="DoctoruserInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/doctoruser/doctoruser_info.js"></script>
+@}

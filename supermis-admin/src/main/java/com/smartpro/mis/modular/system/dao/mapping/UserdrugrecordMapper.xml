@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.UserdrugrecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Userdrugrecord">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="drugId" property="drugId" />
+        <result column="startUseTime" property="startUseTime" />
+        <result column="endUseTime" property="endUseTime" />
+        <result column="drugNum" property="drugNum" />
+        <result column="recordTime" property="recordTime" />
+        <result column="altercol" property="altercol" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, drugId, startUseTime, endUseTime, drugNum, recordTime, altercol
+    </sql>
+
+    <sql id="Base_Column_List_With_DrugInfo">
+        u.id, u.uid, u.drugId, u.startUseTime, u.endUseTime, u.drugNum, u.recordTime, u.altercol, d.drug, d.functionDescript, d.treatSymptoms, d.advEffect, d.stock, d.supplier, d.dosageManage, d.createTime, d.altercol as drugAltercol
+    </sql>
+    <select id="selectListByUid" resultType="map">
+        select
+
+        u.id, u.uid, u.drugId, u.startUseTime, u.endUseTime, u.drugNum, u.recordTime, u.altercol, d.drug, d.functionDescript, d.treatSymptoms, d.advEffect, d.stock, d.supplier, d.dosageManage, d.createTime, d.altercol as drugAltercol
+
+        from userdrugrecord u,globaldrug d
+        where u.drugId = d.id and u.uid = #{uid}
+        <if test="null != drug ">
+            and (d.drug = #{drug})
+        </if>
+        ORDER BY
+        u.recordTime DESC
+    </select>
+
+    <select id="selectUserDrugById" resultType="map">
+        select
+
+        u.id, u.uid, u.drugId, u.startUseTime, u.endUseTime, u.drugNum, u.recordTime, u.altercol, d.drug, d.functionDescript, d.treatSymptoms, d.advEffect, d.stock, d.supplier, d.dosageManage, d.createTime, d.altercol as drugAltercol
+
+        from userdrugrecord u,globaldrug d
+        where u.drugId = d.id  and  u.id = #{id}
+        ORDER BY
+        u.recordTime DESC
+    </select>
+
+
+</mapper>

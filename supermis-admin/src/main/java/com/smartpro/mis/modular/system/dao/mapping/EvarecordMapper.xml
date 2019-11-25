@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.EvarecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Evarecord">
+        <id column="id" property="id" />
+        <result column="uid" property="uid" />
+        <result column="deviceId" property="deviceId" />
+        <result column="evaType" property="evaType" />
+        <result column="evaValue" property="evaValue" />
+        <result column="evaTime" property="evaTime" />
+        <result column="symDescription" property="symDescription" />
+        <result column="medRecord" property="medRecord" />
+        <result column="latitude" property="latitude" />
+        <result column="longitude" property="longitude" />
+        <result column="alter" property="alter" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, uid, deviceId, evaType, evaValue, evaTime, symDescription, medRecord, latitude, longitude, altercol
+    </sql>
+
+    <!--String uid, String evaType, String deviceId, String startTime, String endTime-->
+    <select id="selectEvaList" resultType="map">
+        select
+        <include refid="Base_Column_List" />
+        from evaRecord
+        where uid = #{uid}
+        <if test="null != evaType and evaType != ''">
+             and evaType = #{evaType}
+        </if>
+        <if test="null != deviceId  and deviceId != ''">
+            and deviceId = #{deviceId}
+        </if>
+
+        <if test=" null != startTime and startTime != '' and null != endTime and endTime != ''">
+            and (evaTime between #{startTime} and #{endTime})
+        </if>
+        order By evaTime desc
+    </select>
+
+</mapper>

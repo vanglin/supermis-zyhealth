@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartpro.mis.modular.system.dao.AsthrecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.smartpro.mis.modular.system.model.Asthrecord">
+        <id column="id" property="id" />
+        <result column="followTime" property="followTime" />
+        <result column="isMedTaking" property="isMedTaking" />
+        <result column="timesPerDay" property="timesPerDay" />
+        <result column="dosage" property="dosage" />
+        <result column="cardNo" property="cardNo" />
+        <result column="drug" property="drug" />
+        <result column="firstUseDrugTime" property="firstUseDrugTime" />
+        <result column="mediDay" property="mediDay" />
+        <result column="drugRoute" property="drugRoute" />
+        <result column="patientName" property="patientName" />
+        <result column="altercol" property="altercol" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, followTime, isMedTaking, timesPerDay, dosage, cardNo, drug, firstUseDrugTime, mediDay, drugRoute, patientName, altercol
+    </sql>
+
+    <select id="selectListByCardNo" resultType="map">
+        select
+        <include refid="Base_Column_List" />
+        from asthRecord
+        where cardNo = #{cardNo}
+        ORDER BY
+        id ASC
+    </select>
+
+
+</mapper>
